@@ -1,6 +1,7 @@
 import React, { useRef, useState} from 'react'
-import { Button, Alert, Form, Card, Container} from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { Button, Alert, Form, Card, Container} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "bootswatch/dist/united/bootstrap.min.css";
 
@@ -56,7 +57,7 @@ export default function Signup () {
                 </Card.Body>
             </Card>
             <div classname="w-100 text-center mt2">
-                Already have an account? Log In
+                Already have an account? <Link to="/login">Log In</Link>
             </div>
         </>
         
