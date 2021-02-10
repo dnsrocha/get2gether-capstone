@@ -24,7 +24,7 @@ export default function Login () {
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
         } catch {
-            setError('Invalid username or password')
+            setError('Failed to sign in')
         }
         setLoading(false)
     }

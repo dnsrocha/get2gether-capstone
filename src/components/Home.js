@@ -1,6 +1,6 @@
 
 import React from 'react'
-import Signup from './components/Signup'
+import Signup from './Signup'
 
 const Home = () => {
     return (

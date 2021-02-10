@@ -8,7 +8,7 @@ import { Container } from 'react-bootstrap'
 import './App.css';
 
 
-// import Home from './components/Home'
+import Home from './components/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
 // import Navigation from './components/Navigation'
@@ -35,6 +35,7 @@ const App = () => {
           <Router>
             <AuthProvider>
               <Switch>
+                <Route exact path="/" component={Home} />
                 <Route exact path="/dashboard" component={UserDashboard} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/login" component={Login} />
