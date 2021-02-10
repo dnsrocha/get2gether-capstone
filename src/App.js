@@ -1,5 +1,11 @@
 import React from 'react'
 // import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { AuthProvider } from '../contexts/AuthContext'
+
+import "bootswatch/dist/united/bootstrap.min.css"
+import 'bootstrap/dist/css/bootstrap.min.css'
+import {Container} from 'react-bootstrap'
+import './App.css';
 
 
 // import Home from './components/Home'
@@ -13,18 +19,27 @@ import Signup from './components/Signup'
 // import ContactList from './components/ContactList'
 
 
-import './App.css';
-
 const BASE_URL = 'http://localhost:5000'
 
 
 
 const App = () => {
   return (
-    <div>
-    <a href='http://localhost:5000' target="_blank" rel="noopener noreferrer">Home Page</a>
-    <Signup />
-    </div>
+    <AuthProvider>
+
+      <Container 
+          className="d-flex align-items-center justify-content-center"
+          style={{ minHeight: "100vh"}}
+        >
+        <div className="w-100" style={{ maxWidth: '400px' }}>
+          <Signup />
+        </div>
+      </Container>
+
+    </AuthProvider>
+    
+    
+    
   );
 }
 

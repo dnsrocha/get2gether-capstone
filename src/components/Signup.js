@@ -1,59 +1,64 @@
-import React, {useReducer, useState} from 'react'
-import { Button, Alert, Form, Container, Card, Col} from 'react-bootstrap'
+import React, { useRef, useState} from 'react'
+import { Button, Alert, Form, Card, Container} from 'react-bootstrap'
+import { useAuth } from '../contexts/AuthContext'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import axios from 'axios'
+import "bootswatch/dist/united/bootstrap.min.css";
 
-const formReducer = (state, event) => {
-    return {
-        ...state,
-        [event.name]: event.value
-    }
-}
 
-const Signup = () => {
 
-    const [formData, setFormData] = useReducer(formReducer, {});
-    const [submitting, setSubmitting] = useState(false);
-    const handleSubmit = event => {
-        event.preventDefault();
-        setSubmitting(true);
-        // alert('Your info has been submitted.')
-        setTimeout(() => {
-            setSubmitting(false);
-        }, 3000)
-    }
-    const handleChange = event => {
-        setFormData({
-            name: event.target.name,
-            value: event.target.value,
-        });
+export default function Signup () {
+
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const passwordConfirmRef = useRef()
+    const { signup } = useAuth
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+
+        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+            return setError('Passwords do not match')
+        }
+        
+        try {
+            setError('')
+            setLoading(true)
+            await signup(emailRef.current.value, passwordRef.current.value)
+        } catch {
+            setError('Failed to create an account')
+        }
+        setLoading(false)
     }
 
     return (
-        <div classname='wrapper'>
-            <h2>Sign Up</h2>
-            {submitting &&
-                <div>
-                    Please submit the following:
-                    <ul>
-                        {Object.entries(formData).map(([full_name, value]) => (
-                            <li key={full_name}><strong>{full_name}</strong>:{value.toString()}</li>
-                        ))}
-                    </ul>
-                </div>
-            }
-            <form onSubmit={handleSubmit}>
-                <fieldset>
-                    <label>
-                        <p>Full Name</p>
-                        <input full_name='full_name' onChange={handleChange}/>
-                    </label>
-                </fieldset>
-                <Alert variant='primary'>Please check info before submitting</Alert>
-                <Button>Submit</Button>
-            </form>
-        </div>
+        <>
+            <Card>
+                <Card.Body>
+                    <h2 classname="text-center mb-4">Sign Up</h2>
+                    {error && <Alert variant="danger">{error}</Alert>}
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group id="email">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" ref={emailRef} required />
+                        </Form.Group>
+                        <Form.Group id="password">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" ref={passwordRef} required />
+                        </Form.Group>
+                        <Form.Group id="password-confirm">
+                            <Form.Label>Password Confirmation</Form.Label>
+                            <Form.Control type="password" ref={passwordConfirmRef} required />
+                        </Form.Group>
+                        <Button disabled={loading} className="w-100" type="submit">Sign Up</Button>
+                    </Form>
+                </Card.Body>
+            </Card>
+            <div classname="w-100 text-center mt2">
+                Already have an account? Log In
+            </div>
+        </>
+        
     )
 }
-
-export default Signup
