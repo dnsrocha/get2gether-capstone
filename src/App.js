@@ -13,8 +13,9 @@ import Home from './components/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import ForgotPassword from './components/ForgotPassword'
-// import Navigation from './components/Navigation'
 import UserDashboard from './components/UserDashboard'
+import UpdateAccountfrom './components/UpdateAccount'
+// import Navigation from './components/Navigation'
 // import User from './components/User'
 // import Search from './components/Search'
 // import SearchContact from './SearchContact'
@@ -38,9 +39,10 @@ const App = () => {
             <AuthProvider>
               <Switch>
                 <Route exact path="/" component={Home} />
-                <PrivateRoute exact path="/dashboard" component={UserDashboard} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/login" component={Login} />
+                <PrivateRoute exact path="/dashboard" component={UserDashboard} />
+                <PrivateRoute path="/update-account" component={UpdateAccount} />
                 <Route path="/reset-password" component={ForgotPassword} />
               </Switch>
             </AuthProvider>
