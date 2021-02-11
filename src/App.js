@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
+import PrivateRoute from './components/PrivateRoute'
 
 import "bootswatch/dist/united/bootstrap.min.css"
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -36,7 +37,7 @@ const App = () => {
             <AuthProvider>
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/dashboard" component={UserDashboard} />
+                <PrivateRoute exact path="/dashboard" component={UserDashboard} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/login" component={Login} />
               </Switch>
