@@ -1,5 +1,4 @@
 import React, { useRef, useState} from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -61,11 +60,9 @@ export default function Signup () {
                     </Form>
                 </Card.Body>
             </Card>
-            <Router>
                 <div classname="w-100 text-center mt2">
                     Already have an account? <Link to="/login">Log In</Link>
                 </div>
-            </Router>
         </>
         
     )

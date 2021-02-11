@@ -24,13 +24,12 @@ export default function UserDashboard () {
 
     return (
         <>
-        <Router>
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">Profile</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
-                    {/* <strong>Email:</strong>{currentUser.email} */}
-                    <Link to="/update_profile" className="btn btn-secondary w100 mt-3">
+                    <strong>Email:</strong>{currentUser.email}
+                    <Link to="/update-profile" className="btn btn-secondary w100 mt-3">
                         Update Profile
                     </Link>
                 </Card.Body>
@@ -40,7 +39,6 @@ export default function UserDashboard () {
                     Log Out
                 </Button>
             </div>
-            </Router>
         </>
     )
 }

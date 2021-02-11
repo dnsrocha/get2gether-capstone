@@ -12,6 +12,7 @@ import './App.css';
 import Home from './components/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
+import ForgotPassword from './components/ForgotPassword'
 // import Navigation from './components/Navigation'
 import UserDashboard from './components/UserDashboard'
 // import User from './components/User'
@@ -40,6 +41,7 @@ const App = () => {
                 <PrivateRoute exact path="/dashboard" component={UserDashboard} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/login" component={Login} />
+                <Route path="/reset-password" component={ForgotPassword} />
               </Switch>
             </AuthProvider>
           </Router>
