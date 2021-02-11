@@ -1,6 +1,7 @@
 import React, { useRef, useState} from 'react';
 import { Button, Alert, Form, Card, Container} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootswatch/dist/united/bootstrap.min.css";
@@ -14,6 +15,7 @@ export default function Login () {
     const { login } = useAuth
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -23,6 +25,7 @@ export default function Login () {
             setError('')
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
+            history.push("/UserDashboard")
         } catch {
             setError('Failed to sign in')
         }
@@ -48,9 +51,11 @@ export default function Login () {
                     </Form>
                 </Card.Body>
             </Card>
-            <div classname="w-100 text-center mt2">
-                Need an account? <Link to="/signup">Sign Up</Link>
-            </div>
+            <Router>
+                <div classname="w-100 text-center mt2">
+                    Need an account? <Link to="/signup">Sign Up</Link>
+                </div>
+            </Router>
         </>
         
     )
