@@ -4,7 +4,6 @@ import { useAuth } from '../contexts/AuthContext'
 
 import { Button, Alert, Form, Card } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import "bootswatch/dist/united/bootstrap.min.css";
 
 
 
@@ -41,7 +40,7 @@ export default function Signup () {
         
             <Card>
                 <Card.Body>
-                    <h2 classname="text-center mb-4">Sign Up</h2>
+                    <h2 className="text-center mb-4">Sign Up</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="email">
@@ -60,7 +59,7 @@ export default function Signup () {
                     </Form>
                 </Card.Body>
             </Card>
-                <div classname="w-100 text-center mt2">
+                <div className="w-100 text-center mt2">
                     Already have an account? <Link to="/login">Log In</Link>
                 </div>
         </>

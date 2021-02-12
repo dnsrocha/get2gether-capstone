@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { Card, Button, Alert } from 'react-bootstrap'
 // import Contacts from './Contacts'
+import ProfileForm from './ProfileForm'
 
 export default function UserDashboard () {
 

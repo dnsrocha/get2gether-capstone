@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import axios from 'axios'
+import { Form, Button, Container, Card, Col} from 'react-bootstrap';
+import "bootswatch/dist/united/bootstrap.min.css"
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 
 
 export default function ProfileForm(baseUrl, setDashboardUser) {
@@ -48,7 +52,7 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
         }
 
         //check if all fields are populated
-        const checkPopulatedFieds = () => {
+        const checkPopulatedFields = () => {
             const fields =
                 Object.values(user)
                     .filter((element) => {
@@ -71,7 +75,7 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (checkFormPopulated()) {
+        if (checkPopulatedFields()) {
             axios.post(baseUrl + '/users', user)
                 .then((response) => {
                     setDashboardUser(response);
@@ -100,8 +104,42 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
 
 
     return (
-        <div>
+        <Container>
+            <div class="jumbotron">
+                <Card>
+                    <Card.Body>
+                        <Form onSubmit={handleSubmit}>
+                            <h3 className='text-center mb-4'>Profile</h3>
+                            <Form.Row>
+                                <Form.Group as={Col}>
+                                    <Form.Label>Full Name</Form.Label>
+                                    <Form.Control type="text" name='full_name' value={user.full_name} onChange={handleChange} />
+                                </Form.Group>
 
-        </div>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} controlId="formGridCountry" >
+                                    <Form.Label>Country</Form.Label>
+                                    <Form.Control name='country' value={user.location_info.country} onChange={handleChange} />
+                                </Form.Group>
+                                <Form.Group as={Col} controlId='formGridState' >
+                                    <Form.Label>State</Form.Label>
+                                    <Form.Control name='state' value={user.location_info.city} onChange={handleChange} />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} controlId="formGridCity" >
+                                    <Form.Label>City</Form.Label>
+                                    <Form.Control name='city' value={user.location_info.city} onChange={handleChange} />
+                                </Form.Group>
+                            </Form.Row>
+                            <Button variant='primary' type="submit" value="submit">
+                                Submit
+                            </Button>
+                        </Form>
+                    </Card.Body>
+                </Card>
+            </div>
+        </Container>
     )
 }

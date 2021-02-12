@@ -1,5 +1,5 @@
 import React, { useRef, useState} from 'react';
-import { Button, Alert, Form, Card, Container} from 'react-bootstrap';
+import { Button, Alert, Form, Card} from 'react-bootstrap';
 import { Link,  } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -35,7 +35,7 @@ export default function ForgotPassword () {
         <>
             <Card>
                 <Card.Body>
-                    <h2 classname="text-center mb-4">Reset Password</h2>
+                    <h2 className="text-center mb-4">Reset Password</h2>
                     {message && <Alert variant="success">{message}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="email">
@@ -44,12 +44,12 @@ export default function ForgotPassword () {
                         </Form.Group>
                         <Button disabled={loading} className="w-100" type="submit">Reset Password</Button>
                     </Form>
-                        <div classname="w-100 text-center mt-3">
+                        <div className="w-100 text-center mt-3">
                             <Link to="/login">Login</Link>
                         </div>
                 </Card.Body>
             </Card>
-                <div classname="w-100 text-center mt2">
+                <div className="w-100 text-center mt2">
                     Need an account? <Link to="/signup">Sign Up</Link>
                 </div>        
         </>
