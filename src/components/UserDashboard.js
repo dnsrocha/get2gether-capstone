@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Route, Switch, Link, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { Card, Button, Alert } from 'react-bootstrap'
 // import Contacts from './Contacts'
