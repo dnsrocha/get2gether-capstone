@@ -53,9 +53,10 @@ export default function Login () {
                         </div>
                 </Card.Body>
             </Card>
-                <div className="w-100 text-center mt2">
-                    Need an account? <Link to="/signup">Sign Up</Link>
-                </div>        </>
+            <div className="w-100 text-center mt2">
+                Need an account? <Link to="/signup">Sign Up</Link>
+            </div>        
+        </>
         
     )
 }

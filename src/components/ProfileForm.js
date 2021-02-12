@@ -43,13 +43,7 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
                 [updatedInfo]: updatedValue,
             });
         }
-
-        const handleCheck = (e) => {
-            setUser({
-                ...user,
-                [e.target.name]: !user[e.target.name]
-            });
-        }
+    }
 
         //check if all fields are populated
         const checkPopulatedFields = () => {
@@ -58,7 +52,7 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
                     .filter((element) => {
                         return typeof (element) !== 'object' && typeof (element) !== 'boolean'
                     })
-                    .concat(Object.values(user.address))
+                    .concat(Object.values(user.location_info))
             
             if (fields.every((field) => field)) {
                 return true
@@ -71,7 +65,6 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
             }
         }
 
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -105,7 +98,7 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
 
     return (
         <Container>
-            <div class="jumbotron">
+            {/* <div class="jumbotron"> */}
                 <Card>
                     <Card.Body>
                         <Form onSubmit={handleSubmit}>
@@ -139,7 +132,7 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
                         </Form>
                     </Card.Body>
                 </Card>
-            </div>
+            {/* </div> */}
         </Container>
     )
 }
