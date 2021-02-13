@@ -13,12 +13,16 @@ export default function UpdateProfile({baseURL}) {
     const history = useHistory();
 
     const loadUserData = () => {
+        console.log('this is a string')
         currentUser && 
             axios.get(`${baseURL}/users/current/${currentUser.uid}`)
                 .then((response) => {
+                    console.log('weird string')
                     const apiUser = Object.values(response.data)[0]
                     if (Object.keys(response.data)[0] !== 'message') {
                         apiUser.userID = Object.keys(response.data)[0]
+                        console.log('apiUser')
+                        console.log(apiUser)
                         setUser(apiUser);
                     } else {
                         setError({variant: 'warning', message: apiUser})
@@ -95,13 +99,11 @@ export default function UpdateProfile({baseURL}) {
 
     }
 
-    // if (!user) {
-    //     return(
-    //         <div></div>
-    //     )
-    // }
+    if (user) {
+
     return (
         <Container>
+            {error && <p>{error.message}</p>} 
         {/* <div class="jumbotron"> */}
             <Card>
                 <Card.Body>
@@ -140,5 +142,8 @@ export default function UpdateProfile({baseURL}) {
     </Container>
 
     )
+    } else {
+        return null;
+    }
 
 }

@@ -13,7 +13,7 @@ export default function UpdateAccount () {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
-    const { currentUser, updateEmail, updatePassword } = useAuth
+    const { currentUser, updateEmail, updatePassword } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const history = useHistory()
@@ -64,7 +64,7 @@ export default function UpdateAccount () {
                         </Form.Group>
                         <Form.Group id="password-confirm">
                             <Form.Label>Password Confirmation</Form.Label>
-                            <Form.Control type="password" ref={passwordConfirmRef} placeholder='Leave blank to keep the same' />
+                            <Form.Control type="password" ref={passwordConfirmRef} placeholder='Leave blank to keep your current password' />
                         </Form.Group>
                         <Button disabled={loading} className="w-100" type="submit">Update</Button>
                     </Form>

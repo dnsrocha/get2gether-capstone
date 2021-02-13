@@ -7,10 +7,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 
-export default function ProfileForm(baseUrl, setDashboardUser) {
+export default function ProfileForm({baseURL, setDashboardUser}) {
 
-    const { currentUser } = useAuth;
-    const [error, setError] = useState('')
+    const { currentUser } = useAuth();
+    const [error, setError] = useState(null)
 
     const [user, setUser] = useState({
         auth_id: currentUser.uid,
@@ -26,24 +26,44 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
 
     const handleChange = (e) => {
         const updatedInfo = e.target.name
-        const updatedValue = e.target.updatedValue
+        const updatedValue = e.target.value
         const newLocation = ['country', 'state', 'city']
 
-        if (newLocation.includes(updatedInfo)) {
-            setUser({
-                ...user,
-                location_info: {
-                    ...user.location_info,
-                    [updatedInfo]: updatedValue,
-                }
-            })
-        } else {
-            setUser({
-                ...user,
-                [updatedInfo]: updatedValue,
-            });
+        // console.log('tmw1')
+        // console.log(user)
+        // user.full_name = 'Denise'
+        // setUser(user)
+        // user.location_info.country = 'US'
+        // setUser(user)
+        // user.location_info.state = 'wa'
+        // setUser(user)
+        // user.location_info.city = 'seattle'
+        // setUser(user)
+        // console.log(user)
+        // console.log('tmw2')
+
+        const newUser = {
+            ...user,
+            location_info: {
+                ...user.location_info,
+            }
         }
+
+        if (newLocation.includes(updatedInfo)) {
+            
+            newUser.location_info[updatedInfo] = updatedValue
+            setUser(newUser)
+
+        } else {
+
+            newUser[updatedInfo] = updatedValue
+            setUser(newUser)
+            
+        }
+        console.log(newUser)
+        console.log({updatedInfo, updatedValue})
     }
+
 
         //check if all fields are populated
         const checkPopulatedFields = () => {
@@ -54,6 +74,9 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
                     })
                     .concat(Object.values(user.location_info))
             
+                    console.log(user);
+                    fields.every((field) => console.log(field));
+                    
             if (fields.every((field) => field)) {
                 return true
             } else {
@@ -69,22 +92,11 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (checkPopulatedFields()) {
-            axios.post(baseUrl + '/users', user)
+            axios.post(baseURL + '/users', user)
                 .then((response) => {
-                    setDashboardUser(response);
-
-                    setUser({
-                        auth_id :currentUser.uid,
-                        full_name: '',
-                        location_info: {
-                            country: '',
-                            state: '',
-                            city: ''
-                        }
-                        //availability_info: {}, --> time windows where user is available
-                        //avatar_url': '', # bonus =  choose from available
-                    })
+                
                     setError({ variant: 'success', message: response.data.message })
+                    
                 })
                 .catch((error) => {
                     const message=`There was an error with your request. Could not save user profile ${error.response && error.response.data.message ? error.response.data.message : error.message}.`;
@@ -98,6 +110,7 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
 
     return (
         <Container>
+            {error && <p>{error.message}</p>} 
             {/* <div class="jumbotron"> */}
                 <Card>
                     <Card.Body>
@@ -105,25 +118,25 @@ export default function ProfileForm(baseUrl, setDashboardUser) {
                             <h3 className='text-center mb-4'>Profile</h3>
                             <Form.Row>
                                 <Form.Group as={Col}>
-                                    <Form.Label>Full Name</Form.Label>
-                                    <Form.Control type="text" name='full_name' value={user.full_name} onChange={handleChange} />
+                                    <Form.Label>Full Name*</Form.Label>
+                                    <Form.Control type="text" name='full_name'  onChange={handleChange} />
                                 </Form.Group>
 
                             </Form.Row>
                             <Form.Row>
                                 <Form.Group as={Col} controlId="formGridCountry" >
-                                    <Form.Label>Country</Form.Label>
-                                    <Form.Control name='country' value={user.location_info.country} onChange={handleChange} />
+                                    <Form.Label>Country*</Form.Label>
+                                    <Form.Control name='country'  onChange={handleChange} />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId='formGridState' >
-                                    <Form.Label>State</Form.Label>
-                                    <Form.Control name='state' value={user.location_info.city} onChange={handleChange} />
+                                    <Form.Label>State*</Form.Label>
+                                    <Form.Control name='state'  onChange={handleChange} />
                                 </Form.Group>
                             </Form.Row>
                             <Form.Row>
                                 <Form.Group as={Col} controlId="formGridCity" >
-                                    <Form.Label>City</Form.Label>
-                                    <Form.Control name='city' value={user.location_info.city} onChange={handleChange} />
+                                    <Form.Label>City*</Form.Label>
+                                    <Form.Control name='city'  onChange={handleChange} />
                                 </Form.Group>
                             </Form.Row>
                             <Button variant='primary' type="submit" value="submit">

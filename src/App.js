@@ -13,10 +13,11 @@ import Home from './components/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import ForgotPassword from './components/ForgotPassword'
-// import UserDashboard from './components/UserDashboard'
+import UserDashboard from './components/UserDashboard'
 import UpdateAccount from './components/UpdateAccount'
+import ProfileForm from './components/ProfileForm'
 import UpdateProfile from './components/UpdateProfile'
-import Navigation from './components/Navigation'
+// import Navigation from './components/Navigation'
 import User from './components/User'
 // import Search from './components/Search'
 // import SearchContact from './SearchContact'
@@ -38,15 +39,16 @@ const App = () => {
         <div className="w-100" style={{ maxWidth: '400px' }}>
           <Router>
             <AuthProvider>
-              <Navigation baseUrl={BASE_URL} />
+              {/* <Navigation baseUrl={BASE_URL} /> */}
               <Switch>
                 {/* <PrivateRoute exact path='/users/:id' ><User baseUrl={BASE_URL} /></PrivateRoute> */}
-                <Route path="/"><Home baseURL={BASE_URL} /></Route>
+                {/* <Route path="/"><Home baseURL={BASE_URL} /></Route> */}
                 <Route path="/signup" component={Signup} />
                 <Route path="/login" component={Login} />
                 <Route path="/reset-password" component={ForgotPassword} />
-                {/* <PrivateRoute exact path="/dashboard" component={UserDashboard} /> */}
+                <PrivateRoute exact path="/dashboard" component={UserDashboard} />
                 <PrivateRoute exact path="/update-account" component={UpdateAccount} />
+                <PrivateRoute exact path="/create-account"><ProfileForm baseURL={BASE_URL} /></PrivateRoute>
                 <PrivateRoute exact path='/update-profile'><UpdateProfile baseURL={BASE_URL} /></PrivateRoute>
               </Switch>
             </AuthProvider>

@@ -1,14 +1,22 @@
 
-import React from 'react'
+import React from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import UserDashboard from './UserDashboard'
+import Login from './Login'
+import Signup from './Signup'
 
-const Home = () => {
+const Home = ({baseURL}) => {
+  const { currentUser } = useAuth();
     return (
         <div>
-
-            <h1>Get2Gether</h1>
-            <div id="footer"> Copyright © 2021 All Rights Reserved </div>
+            { currentUser ? 
+                <UserDashboard baseURL={baseURL} /> 
+            :
+                <Login />
+       
+            }
         </div>
     )
 }
 
-export default Home
+export default Home;

@@ -9,7 +9,7 @@ import { Card, Button, Alert } from 'react-bootstrap'
 export default function Navigation () {
 
     const [error, setError] = useState('')
-    const { currentUser, logout } = useAuth
+    const { currentUser, logout } = useAuth()
     const history = useHistory()
 
     async function handleLogout() {
@@ -29,7 +29,7 @@ export default function Navigation () {
                 <Card.Body>
                     <h2 className="text-center mb-4">Profile</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
-                    <strong>Email:</strong>{currentUser.email}
+                    {/* <strong>Email:</strong>{currentUser.email} */}
                     <Link to="/update-profile" className="btn btn-secondary w100 mt-3">
                         Update Profile
                     </Link>
