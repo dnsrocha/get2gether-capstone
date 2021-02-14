@@ -29,19 +29,6 @@ export default function ProfileForm({baseURL, setDashboardUser}) {
         const updatedValue = e.target.value
         const newLocation = ['country', 'state', 'city']
 
-        // console.log('tmw1')
-        // console.log(user)
-        // user.full_name = 'Denise'
-        // setUser(user)
-        // user.location_info.country = 'US'
-        // setUser(user)
-        // user.location_info.state = 'wa'
-        // setUser(user)
-        // user.location_info.city = 'seattle'
-        // setUser(user)
-        // console.log(user)
-        // console.log('tmw2')
-
         const newUser = {
             ...user,
             location_info: {

@@ -6,22 +6,20 @@ import axios from 'axios'
 
 
 
-export default function UpdateProfile({baseURL}) {
+export default function UpdateContactInfo({baseURL}) {
     const { currentUser } = useAuth();
     const [error, setError] = useState('');
-    const [user, setUser] = useState(null);
+    const [contact, setContact] = useState(null);
     const history = useHistory();
 
     const loadUserData = () => {
         currentUser && 
-            axios.get(`${baseURL}/users/current/${currentUser.uid}`)
+            axios.post(`${baseURL}/add_contact`)
                 .then((response) => {
                     const apiUser = Object.values(response.data)[0]
                     if (Object.keys(response.data)[0] !== 'message') {
                         apiUser.userID = Object.keys(response.data)[0]
-                        // console.log('apiUser')
-                        // console.log(apiUser)
-                        setUser(apiUser);
+                        setContact(apiUser);
                     } else {
                         setError({variant: 'warning', message: apiUser})
                     }
@@ -63,11 +61,11 @@ export default function UpdateProfile({baseURL}) {
     //check if all fields are populated
     const checkPopulatedFields = () => {
         const fields =
-            Object.values(user)
+            Object.values(contact)
                 .filter((element) => {
                     return typeof (element) !== 'object' && typeof (element) !== 'boolean'
                 })
-                .concat(Object.values(user.location_info))
+                .concat(Object.values(contact.location_info))
         
         if (fields.every((field) => field)) {
             return true
@@ -83,13 +81,13 @@ export default function UpdateProfile({baseURL}) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (checkPopulatedFields()) {
-            axios.put(baseURL + '/users/' + user.userID, user)
+            axios.put(baseURL + '/add_contact', user)
                 .then((response) => {
                     setError({variant: 'success', message: response.data.message});
                     history.push('/');
                 })
                 .catch((error) => {
-                    const message=`There was an error with your request. User profile was not saved. ${error.response && error.response.data.message ? error.response.data.message : error.message}.`;
+                    const message=`There was an error with your request. Contact was not saved. ${error.response && error.response.data.message ? error.response.data.message : error.message}.`;
                     setError({variant: 'danger', message: message});
                     console.log(message);
                 })
@@ -106,28 +104,33 @@ export default function UpdateProfile({baseURL}) {
             <Card>
                 <Card.Body>
                     <Form onSubmit={handleSubmit}>
-                        <h3 className='text-center mb-4'>Profile</h3>
+                        <h3 className='text-center mb-4'>Add Contact</h3>
                         <Form.Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Full Name</Form.Label>
-                                <Form.Control type="text" name='full_name' value={user.full_name} onChange={handleChange} />
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control type="text" name='name' value={contact.name} onChange={handleChange} />
                             </Form.Group>
-
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group as={Col}>
+                                <Form.Label>Nickname</Form.Label>
+                                <Form.Control type="text" name='name' value={contact.name} onChange={handleChange} />
+                            </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridCountry" >
                                 <Form.Label>Country</Form.Label>
-                                <Form.Control name='country' value={user.location_info.country} onChange={handleChange} />
+                                <Form.Control name='country' value={contact.location_info.country} onChange={handleChange} />
                             </Form.Group>
                             <Form.Group as={Col} controlId='formGridState' >
                                 <Form.Label>State</Form.Label>
-                                <Form.Control name='state' value={user.location_info.city} onChange={handleChange} />
+                                <Form.Control name='state' value={contact.location_info.city} onChange={handleChange} />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridCity" >
                                 <Form.Label>City</Form.Label>
-                                <Form.Control name='city' value={user.location_info.city} onChange={handleChange} />
+                                <Form.Control name='city' value={contact.location_info.city} onChange={handleChange} />
                             </Form.Group>
                         </Form.Row>
                         <Button variant='primary' type="submit" value="submit">

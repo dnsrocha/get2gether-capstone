@@ -41,12 +41,12 @@ export default function UserDashboard () {
                         Update Account
                     </Link>
 
-                    {/* <Link to="/contacts-list" className="btn btn-secondary w100 mt-3 mx-3">
-                        Contacts List
-                    </Link>
-
                     <Link to="/add-contact" className="btn btn-secondary w100 mt-3 mx-3">
                         Add Contact
+                    </Link> 
+
+                    {/* <Link to="/contacts-list" className="btn btn-secondary w100 mt-3 mx-3">
+                        Contacts List
                     </Link> */}
                 
                 </Card.Body>
@@ -59,8 +59,3 @@ export default function UserDashboard () {
         </>
     )
 }
-
-
-{/* <Link to="/create-profile" className="btn btn-secondary w100 mt-3">
-    Create Profile
-</Link> */}

@@ -17,6 +17,7 @@ import UserDashboard from './components/UserDashboard'
 import UpdateAccount from './components/UpdateAccount'
 import ProfileForm from './components/ProfileForm'
 import UpdateProfile from './components/UpdateProfile'
+import ContactForm from './components/ContactForm'
 // import Navigation from './components/Navigation'
 import User from './components/User'
 // import Search from './components/Search'
@@ -50,6 +51,7 @@ const App = () => {
                 <PrivateRoute exact path="/update-account" component={UpdateAccount} />
                 <PrivateRoute exact path="/create-account"><ProfileForm baseURL={BASE_URL} /></PrivateRoute>
                 <PrivateRoute exact path='/update-profile'><UpdateProfile baseURL={BASE_URL} /></PrivateRoute>
+                <PrivateRoute exact path='/add-contact'><ContactForm baseURL={BASE_URL} /></PrivateRoute>
               </Switch>
             </AuthProvider>
           </Router>
