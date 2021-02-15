@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Form, Button, Container, Card, Col } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom'
@@ -12,37 +12,7 @@ export default function UpdateContactInfo({baseURL, contactInfo}) {
     const { currentUser } = useAuth();
     const [error, setError] = useState('');
     const [contact, setContact] = useState(contactInfo);
-    // const [Contacts, setContacts] = useState(null);
     const history = useHistory();
-
-    // console.log(contactInfo)
-    // console.log(contactInfo.name)
-
-   
-
-
-    // const loadAllContactsData = () => {
-    //     currentUser && 
-    //         axios.put(`${baseURL}/contacts/${currentUser.uid}/update-info/${contactInfo.contact_id}`)
-    //         .then((response) => {
-    //             const apiContact = Object.values(response.data)[0]
-    //             if (Object.keys(response.data)[0] !== 'message') {
-    //                 apiContact.contactID = Object.keys(response.data)[0]
-    //                 setContact(apiContact);
-    //             } else {
-    //                 setError({variant: 'warning', message: apiContact})
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             const message=`There was an error with your request. ${error.response && error.response.data.message ? error.response.data.message : error.message}`;
-    //             setError({variant: 'danger', message: message});
-    //             console.log(message);
-    //         })
-    // }
-
-    // useEffect(() => {
-    //     loadAllContactsData();
-    // }, [])
 
 
     const handleChange = (e) => {

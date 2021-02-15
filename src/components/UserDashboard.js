@@ -3,8 +3,9 @@ import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { Card, Button, Alert } from 'react-bootstrap'
-// import Contacts from './Contacts'
-// import ProfileForm from './ProfileForm'
+import Locations from './Locations'
+import TimeBar from './TimeBar'
+// import TimeBar from './TimeBar.css'
 
 export default function UserDashboard () {
 
@@ -56,6 +57,8 @@ export default function UserDashboard () {
                     Log Out
                 </Button>
             </div>
+
+            <Locations />
         </>
     )
 }

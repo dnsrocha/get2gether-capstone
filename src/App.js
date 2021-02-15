@@ -20,6 +20,7 @@ import UpdateProfile from './components/UpdateProfile'
 import ContactForm from './components/ContactForm'
 import ContactList from './components/ContactList'
 import UpdateContactInfo from './components/UpdateContactInfo'
+import TimeBar from './components/TimeBar'
 // import Navigation from './components/Navigation'
 import User from './components/User'
 // import Search from './components/Search'
@@ -49,7 +50,7 @@ const App = () => {
           className="d-flex align-items-center justify-content-center"
           style={{ minHeight: "100vh"}}
         >
-        <div className="w-100" style={{ maxWidth: '400px' }}>
+        <div className="w-100" >
           <Router>
             <AuthProvider>
               {/* <Navigation baseUrl={BASE_URL} /> */}
