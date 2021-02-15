@@ -49,8 +49,6 @@ export default function ContactForm({baseURL}) {
             setContact(newContact)
             
         }
-        console.log(newContact)
-        console.log({updatedInfo, updatedValue})
     }
 
 
@@ -63,16 +61,13 @@ export default function ContactForm({baseURL}) {
                     })
                     .concat(Object.values(contact.location_info))
             
-                    console.log(contact);
-                    console.log(fields);
-                    fields.every((field) => console.log(field));
                     
             if (fields.every((field) => field)) {
                 return true
             } else {
                 setError({
                     variant: 'warning',
-                    message: 'All fields must be populated.'
+                    message: 'All fields with * must be populated.'
                 })
                 return false;
             }
@@ -123,17 +118,17 @@ export default function ContactForm({baseURL}) {
                                 <Form.Row>
                                     <Form.Group as={Col} controlId="formGridCountry" >
                                         <Form.Label>Country*</Form.Label>
-                                        <Form.Control name='country'  onChange={handleChange} />
+                                        <Form.Control name='country'  onChange={handleChange} placeholder="Don't use acronyms" />
                                     </Form.Group>
                                     <Form.Group as={Col} controlId='formGridState' >
                                         <Form.Label>State*</Form.Label>
-                                        <Form.Control name='state'  onChange={handleChange} />
+                                        <Form.Control name='state'  onChange={handleChange} placeholder="Don't use acronyms" />
                                     </Form.Group>
                                 </Form.Row>
                                 <Form.Row>
                                     <Form.Group as={Col} controlId="formGridCity" >
                                         <Form.Label>City*</Form.Label>
-                                        <Form.Control name='city'  onChange={handleChange} />
+                                        <Form.Control name='city'  onChange={handleChange} placeholder="Don't use acronyms" />
                                     </Form.Group>
                                 </Form.Row>
                                 <Button variant='primary' type="submit" value="submit">

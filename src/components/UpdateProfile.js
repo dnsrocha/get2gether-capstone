@@ -19,8 +19,6 @@ export default function UpdateProfile({baseURL}) {
                     const apiUser = Object.values(response.data)[0]
                     if (Object.keys(response.data)[0] !== 'message') {
                         apiUser.userID = Object.keys(response.data)[0]
-                        // console.log('apiUser')
-                        // console.log(apiUser)
                         setUser(apiUser);
                     } else {
                         setError({variant: 'warning', message: apiUser})

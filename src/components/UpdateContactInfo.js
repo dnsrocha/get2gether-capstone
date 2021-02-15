@@ -2,56 +2,65 @@ import React, { useState, useEffect } from 'react'
 import { Form, Button, Container, Card, Col } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom'
+import "bootswatch/dist/united/bootstrap.min.css"
+import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios'
 
 
 
-export default function UpdateContactInfo({baseURL}) {
+export default function UpdateContactInfo({baseURL, contactInfo}) {
     const { currentUser } = useAuth();
     const [error, setError] = useState('');
-    const [contact, setContact] = useState(null);
+    const [contact, setContact] = useState(contactInfo);
+    // const [Contacts, setContacts] = useState(null);
     const history = useHistory();
 
-    const loadUserData = () => {
-        currentUser && 
-            axios.post(`${baseURL}/add_contact`)
-                .then((response) => {
-                    const apiUser = Object.values(response.data)[0]
-                    if (Object.keys(response.data)[0] !== 'message') {
-                        apiUser.userID = Object.keys(response.data)[0]
-                        setContact(apiUser);
-                    } else {
-                        setError({variant: 'warning', message: apiUser})
-                    }
-                })
-                .catch((error) => {
-                    const message=`There was an error with your request. ${error.response && error.response.data.message ? error.response.data.message : error.message}`;
-                    setError({variant: 'danger', message: message});
-                    console.log(message);
-                })
-    }
+    // console.log(contactInfo)
+    // console.log(contactInfo.name)
 
-    useEffect(() => {
-        loadUserData();
-    }, [])
+   
+
+
+    // const loadAllContactsData = () => {
+    //     currentUser && 
+    //         axios.put(`${baseURL}/contacts/${currentUser.uid}/update-info/${contactInfo.contact_id}`)
+    //         .then((response) => {
+    //             const apiContact = Object.values(response.data)[0]
+    //             if (Object.keys(response.data)[0] !== 'message') {
+    //                 apiContact.contactID = Object.keys(response.data)[0]
+    //                 setContact(apiContact);
+    //             } else {
+    //                 setError({variant: 'warning', message: apiContact})
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             const message=`There was an error with your request. ${error.response && error.response.data.message ? error.response.data.message : error.message}`;
+    //             setError({variant: 'danger', message: message});
+    //             console.log(message);
+    //         })
+    // }
+
+    // useEffect(() => {
+    //     loadAllContactsData();
+    // }, [])
 
 
     const handleChange = (e) => {
         const updatedInfo = e.target.name
-        const updatedValue = e.target.values
+        const updatedValue = e.target.value
         const newLocation = ['country', 'state', 'city']
 
         if (newLocation.includes(updatedInfo)) {
-            setUser({
-                ...user,
+            setContact({
+                ...contact,
                 location_info: {
-                    ...user.location_info,
+                    ...contact.location_info,
                     [updatedInfo]: updatedValue,
                 }
             })
         } else {
-            setUser({
-                ...user,
+            setContact({
+                ...contact,
                 [updatedInfo]: updatedValue,
             })
         }
@@ -72,7 +81,7 @@ export default function UpdateContactInfo({baseURL}) {
         } else {
             setError({
                 variant: 'warning',
-                message: 'All fields must be populated.'
+                message: 'All fields with * must be populated.'
             })
             return false;
         }
@@ -81,10 +90,10 @@ export default function UpdateContactInfo({baseURL}) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (checkPopulatedFields()) {
-            axios.put(baseURL + '/add_contact', user)
+            axios.put(`${baseURL}/contacts/${currentUser.uid}/update-info/${contactInfo.contact_id}`, contact)
                 .then((response) => {
                     setError({variant: 'success', message: response.data.message});
-                    history.push('/');
+                    history.push('/contacts-list');
                 })
                 .catch((error) => {
                     const message=`There was an error with your request. Contact was not saved. ${error.response && error.response.data.message ? error.response.data.message : error.message}.`;
@@ -95,7 +104,7 @@ export default function UpdateContactInfo({baseURL}) {
 
     }
 
-    if (user) {
+    if (contact) {
 
     return (
         <Container>
@@ -104,32 +113,32 @@ export default function UpdateContactInfo({baseURL}) {
             <Card>
                 <Card.Body>
                     <Form onSubmit={handleSubmit}>
-                        <h3 className='text-center mb-4'>Add Contact</h3>
+                        <h3 className='text-center mb-4'>Update Contact Info</h3>
                         <Form.Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Name</Form.Label>
+                                <Form.Label>Name*</Form.Label>
                                 <Form.Control type="text" name='name' value={contact.name} onChange={handleChange} />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Nickname</Form.Label>
-                                <Form.Control type="text" name='name' value={contact.name} onChange={handleChange} />
+                                <Form.Label>Nickname*</Form.Label>
+                                <Form.Control type="text" name='nickname' value={contact.nickname} onChange={handleChange} />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridCountry" >
-                                <Form.Label>Country</Form.Label>
+                                <Form.Label>Country*</Form.Label>
                                 <Form.Control name='country' value={contact.location_info.country} onChange={handleChange} />
                             </Form.Group>
                             <Form.Group as={Col} controlId='formGridState' >
-                                <Form.Label>State</Form.Label>
-                                <Form.Control name='state' value={contact.location_info.city} onChange={handleChange} />
+                                <Form.Label>State*</Form.Label>
+                                <Form.Control name='state' value={contact.location_info.state} onChange={handleChange} />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridCity" >
-                                <Form.Label>City</Form.Label>
+                                <Form.Label>City*</Form.Label>
                                 <Form.Control name='city' value={contact.location_info.city} onChange={handleChange} />
                             </Form.Group>
                         </Form.Row>

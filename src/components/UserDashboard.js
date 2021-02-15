@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { Card, Button, Alert } from 'react-bootstrap'
 // import Contacts from './Contacts'
-import ProfileForm from './ProfileForm'
+// import ProfileForm from './ProfileForm'
 
 export default function UserDashboard () {
 
@@ -45,9 +45,9 @@ export default function UserDashboard () {
                         Add Contact
                     </Link> 
 
-                    {/* <Link to="/contacts-list" className="btn btn-secondary w100 mt-3 mx-3">
+                    <Link to="/contacts-list" className="btn btn-secondary w100 mt-3 mx-3">
                         Contacts List
-                    </Link> */}
+                    </Link>
                 
                 </Card.Body>
             </Card> 

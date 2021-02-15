@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import React, {useState} from 'react'
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import PrivateRoute from './components/PrivateRoute'
 
@@ -18,6 +18,8 @@ import UpdateAccount from './components/UpdateAccount'
 import ProfileForm from './components/ProfileForm'
 import UpdateProfile from './components/UpdateProfile'
 import ContactForm from './components/ContactForm'
+import ContactList from './components/ContactList'
+import UpdateContactInfo from './components/UpdateContactInfo'
 // import Navigation from './components/Navigation'
 import User from './components/User'
 // import Search from './components/Search'
@@ -29,7 +31,17 @@ const BASE_URL = 'http://localhost:5000'
 
 
 
+
 const App = () => {
+
+  const [contactInfo, setContactInfo] = useState(null)
+
+  const onContactSelected = (contactInfo) => {
+
+    setContactInfo(contactInfo)
+
+  }
+
   return (
     
 
@@ -52,6 +64,8 @@ const App = () => {
                 <PrivateRoute exact path="/create-account"><ProfileForm baseURL={BASE_URL} /></PrivateRoute>
                 <PrivateRoute exact path='/update-profile'><UpdateProfile baseURL={BASE_URL} /></PrivateRoute>
                 <PrivateRoute exact path='/add-contact'><ContactForm baseURL={BASE_URL} /></PrivateRoute>
+                <PrivateRoute exact path='/contacts-list'><ContactList baseURL={BASE_URL} onContactSelected={onContactSelected} /></PrivateRoute>
+                <PrivateRoute exact path='/update-contact'><UpdateContactInfo baseURL={BASE_URL} contactInfo={contactInfo} /></PrivateRoute>
               </Switch>
             </AuthProvider>
           </Router>

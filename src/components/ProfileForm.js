@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 
-export default function ProfileForm({baseURL, setDashboardUser}) {
+export default function ProfileForm({baseURL}) {
 
     const { currentUser } = useAuth();
     const [error, setError] = useState(null)
