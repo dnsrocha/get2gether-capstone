@@ -129,9 +129,11 @@ export default function Locations({baseURL}) {
                 </Form.Group>
                 <Button onClick={showContact}>Show contact time</Button>
             </Form>
-            <TimeBar name={user.full_name} date={date} srcTzInfo={srcTzInfo} destination_location={user.location_info}/>
+            <TimeBar name={user.full_name} date={date} srcTzInfo={srcTzInfo} dst_location={user.location_info}
+                src_availability={{}} dst_availability={user.availability_info}/>
             {addedContacts.map((c, i) =>
-                <TimeBar key={i} name={contactsList[c].name} date={date} srcTzInfo={srcTzInfo} destination_location={contactsList[c].location_info}/>
+                <TimeBar key={i} name={contactsList[c].name} date={date} srcTzInfo={srcTzInfo} dst_location={contactsList[c].location_info}
+                    src_availability={user.availability_info} dst_availability={contactsList[c].availability_info}/>
             )}
         </div>
     )

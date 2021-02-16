@@ -17,7 +17,8 @@ export default function UpdateProfile({baseURL}) {
             country: '',
             state: '',
             city: ''
-        }
+        },
+        availability_info: {}
     });
 
     console.log(user)
@@ -32,6 +33,7 @@ export default function UpdateProfile({baseURL}) {
 
                     if (Object.keys(response.data)[0] !== 'message') {
                         apiUser.userID = Object.keys(response.data)[0]
+                        apiUser.availability_info = apiUser.availability_info || {}
                         setUser(apiUser);
                     } else {
                         setError({variant: 'warning', message: apiUser})
@@ -48,11 +50,25 @@ export default function UpdateProfile({baseURL}) {
         loadUserData();
     }, [])
 
+    const availabilityChange = (e) => {
+        const updatedInfo = e.target.name
+        const updatedValue = e.target.value
+        const newAvailability = user.availability_info || {}
+
+        setUser({
+            ...user,
+            availability_info: {
+                ...newAvailability,
+                [updatedInfo]: updatedValue === "on"
+            }
+        })
+    }
 
     const handleChange = (e) => {
         const updatedInfo = e.target.name
         const updatedValue = e.target.value
         const newLocation = ['country', 'state', 'city']
+        
 
         if (newLocation.includes(updatedInfo)) {
             setUser({
@@ -140,12 +156,14 @@ export default function UpdateProfile({baseURL}) {
                                 <Form.Control name='city' value={user.location_info.city} onChange={handleChange} />
                             </Form.Group>
                         </Form.Row>
-                        {/* <Form.Row>
-                            <Form.Group as={Col} controlId="formGridAvailability" >
-                                <Form.Label>Availability*</Form.Label>
-                                <Form.Control name='availability_info' value={user.availability_info} onChange={handleChange} />
+                        <Form.Row>
+                            <Form.Group controlId="formBasicCheckbox">
+                            <Form.Label>Availability*</Form.Label>
+                            {[...Array(24).keys()].map(i =>  
+                                <Form.Check type="checkbox" name={i} label={i} checked={user.availability_info[i]} onChange={availabilityChange}/>
+                            )}
                             </Form.Group>
-                        </Form.Row> */}
+                        </Form.Row>
                         <Button variant='primary' type="submit" value="submit">
                             Submit
                         </Button>
@@ -161,3 +179,5 @@ export default function UpdateProfile({baseURL}) {
     }
 
 }
+
+// 

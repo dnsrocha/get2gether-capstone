@@ -22,8 +22,8 @@ export default function ContactForm({baseURL}) {
             country: '',
             state: '',
             city: ''
-        }
-        //availability_info: {}, --> time windows where user is available
+        },
+        availability_info: {}
     })
 
     const handleChange = (e) => {
@@ -49,6 +49,20 @@ export default function ContactForm({baseURL}) {
             setContact(newContact)
             
         }
+    }
+
+    const availabilityChange = (e) => {
+        const updatedInfo = e.target.name
+        const updatedValue = e.target.value
+        const newAvailability = contact.availability_info || {}
+
+        setContact({
+            ...contact,
+            availability_info: {
+                ...newAvailability,
+                [updatedInfo]: updatedValue === "on"
+            }
+        })
     }
 
 
@@ -98,7 +112,6 @@ export default function ContactForm({baseURL}) {
         return (
             <Container>
                 {error && <p>{error.message}</p>} 
-                {/* <div class="jumbotron"> */}
                     <Card>
                         <Card.Body>
                             <Form onSubmit={handleSubmit}>
@@ -129,6 +142,14 @@ export default function ContactForm({baseURL}) {
                                     <Form.Group as={Col} controlId="formGridCity" >
                                         <Form.Label>City*</Form.Label>
                                         <Form.Control name='city'  onChange={handleChange} placeholder="Don't use acronyms" />
+                                    </Form.Group>
+                                </Form.Row>
+                                <Form.Row>
+                                <Form.Group controlId="formBasicCheckbox">
+                                    <Form.Label>Availability*</Form.Label>
+                                        {[...Array(24).keys()].map(i =>  
+                                            <Form.Check type="checkbox" name={i} label={i} checked={contact.availability_info[i]} onChange={availabilityChange}/>
+                                        )}
                                     </Form.Group>
                                 </Form.Row>
                                 <Button variant='primary' type="submit" value="submit">

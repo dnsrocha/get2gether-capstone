@@ -818,7 +818,7 @@ html, body {
     background-color: #f6f6f6;
   }
   
-  div.dragging {
+div.dragging {
     border: 0;
     margin: 0;
     background: rgba(245, 245, 245, 0.8);
@@ -1574,7 +1574,16 @@ html, body {
     border-right: none;
   }
   
-  li.tod_boundary {
+  li.tod_boundary_l {
+    border-radius: 8px 0 0 8px;
+    -webkit-border-radius: 8px 0 0 8px;
+    -moz-border-radius: 8px 0 0 8px;
+    border-left: none;
+    width: 27px;
+    margin-left: 1px;
+  }
+  
+  li.tod_boundary_r {
     border-radius: 0 8px 8px 0;
     -webkit-border-radius: 0 8px 8px 0;
     -moz-border-radius: 0 8px 8px 0;
@@ -1923,7 +1932,7 @@ html, body {
   }
   
   .data {
-    padding-top: 14px;
+    padding-top: 12px;
     /*width: 90px;*/
     height: 46px;
     text-align: left;

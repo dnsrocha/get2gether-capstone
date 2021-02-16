@@ -15,6 +15,20 @@ export default function UpdateContactInfo({baseURL, contactInfo}) {
     const history = useHistory();
 
 
+    const availabilityChange = (e) => {
+        const updatedInfo = e.target.name
+        const updatedValue = e.target.value
+        const newAvailability = contact.availability_info || {}
+
+        setContact({
+            ...contact,
+            availability_info: {
+                ...newAvailability,
+                [updatedInfo]: updatedValue === "on"
+            }
+        })
+    }
+
     const handleChange = (e) => {
         const updatedInfo = e.target.name
         const updatedValue = e.target.value
@@ -110,6 +124,14 @@ export default function UpdateContactInfo({baseURL, contactInfo}) {
                             <Form.Group as={Col} controlId="formGridCity" >
                                 <Form.Label>City*</Form.Label>
                                 <Form.Control name='city' value={contact.location_info.city} onChange={handleChange} />
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group controlId="formBasicCheckbox">
+                            <Form.Label>Availability*</Form.Label>
+                            {[...Array(24).keys()].map(i =>  
+                                <Form.Check type="checkbox" name={i} label={i} checked={contact.availability_info[i]} onChange={availabilityChange}/>
+                            )}
                             </Form.Group>
                         </Form.Row>
                         <Button variant='primary' type="submit" value="submit">
