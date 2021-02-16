@@ -19,9 +19,8 @@ export default function ProfileForm({baseURL}) {
             country: '',
             state: '',
             city: ''
-        }
-        //availability_info: {}, --> time windows where user is available
-        //avatar_url': submitted_data['avatar_url'], # bonus =  choose from available
+        },
+        availability_info: []
     })
 
     const handleChange = (e) => {
@@ -126,6 +125,12 @@ export default function ProfileForm({baseURL}) {
                                     <Form.Control name='city'  onChange={handleChange} />
                                 </Form.Group>
                             </Form.Row>
+                            {/* <Form.Row>
+                                <Form.Group as={Col} controlId="formGridAvailability" >
+                                    <Form.Label>Availability*</Form.Label>
+                                    <Form.Control name='availability_info'  onChange={handleChange} />
+                                </Form.Group>
+                            </Form.Row> */}
                             <Button variant='primary' type="submit" value="submit">
                                 Submit
                             </Button>

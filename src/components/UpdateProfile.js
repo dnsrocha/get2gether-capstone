@@ -9,7 +9,19 @@ import axios from 'axios'
 export default function UpdateProfile({baseURL}) {
     const { currentUser } = useAuth();
     const [error, setError] = useState('');
-    const [user, setUser] = useState(null);
+
+    const [user, setUser] = useState({
+        auth_id: currentUser.uid,
+        full_name: currentUser.displayName || '',
+        location_info: {
+            country: '',
+            state: '',
+            city: ''
+        }
+    });
+
+    console.log(user)
+
     const history = useHistory();
 
     const loadUserData = () => {
@@ -17,6 +29,7 @@ export default function UpdateProfile({baseURL}) {
             axios.get(`${baseURL}/users/current/${currentUser.uid}`)
                 .then((response) => {
                     const apiUser = Object.values(response.data)[0]
+
                     if (Object.keys(response.data)[0] !== 'message') {
                         apiUser.userID = Object.keys(response.data)[0]
                         setUser(apiUser);
@@ -38,7 +51,7 @@ export default function UpdateProfile({baseURL}) {
 
     const handleChange = (e) => {
         const updatedInfo = e.target.name
-        const updatedValue = e.target.values
+        const updatedValue = e.target.value
         const newLocation = ['country', 'state', 'city']
 
         if (newLocation.includes(updatedInfo)) {
@@ -72,7 +85,7 @@ export default function UpdateProfile({baseURL}) {
         } else {
             setError({
                 variant: 'warning',
-                message: 'All fields must be populated.'
+                message: 'All fields with * must be populated.'
             })
             return false;
         }
@@ -81,10 +94,10 @@ export default function UpdateProfile({baseURL}) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (checkPopulatedFields()) {
-            axios.put(baseURL + '/users/' + user.userID, user)
+            axios.put(baseURL + '/users/' + currentUser.uid, user)
                 .then((response) => {
                     setError({variant: 'success', message: response.data.message});
-                    history.push('/');
+                    history.push('/dashboard');
                 })
                 .catch((error) => {
                     const message=`There was an error with your request. User profile was not saved. ${error.response && error.response.data.message ? error.response.data.message : error.message}.`;
@@ -100,34 +113,39 @@ export default function UpdateProfile({baseURL}) {
     return (
         <Container>
             {error && <p>{error.message}</p>} 
-        {/* <div class="jumbotron"> */}
             <Card>
                 <Card.Body>
                     <Form onSubmit={handleSubmit}>
                         <h3 className='text-center mb-4'>Profile</h3>
                         <Form.Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Full Name</Form.Label>
+                                <Form.Label>Full Name*</Form.Label>
                                 <Form.Control type="text" name='full_name' value={user.full_name} onChange={handleChange} />
                             </Form.Group>
 
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridCountry" >
-                                <Form.Label>Country</Form.Label>
+                                <Form.Label>Country*</Form.Label>
                                 <Form.Control name='country' value={user.location_info.country} onChange={handleChange} />
                             </Form.Group>
                             <Form.Group as={Col} controlId='formGridState' >
-                                <Form.Label>State</Form.Label>
-                                <Form.Control name='state' value={user.location_info.city} onChange={handleChange} />
+                                <Form.Label>State*</Form.Label>
+                                <Form.Control name='state' value={user.location_info.state} onChange={handleChange} />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridCity" >
-                                <Form.Label>City</Form.Label>
+                                <Form.Label>City*</Form.Label>
                                 <Form.Control name='city' value={user.location_info.city} onChange={handleChange} />
                             </Form.Group>
                         </Form.Row>
+                        {/* <Form.Row>
+                            <Form.Group as={Col} controlId="formGridAvailability" >
+                                <Form.Label>Availability*</Form.Label>
+                                <Form.Control name='availability_info' value={user.availability_info} onChange={handleChange} />
+                            </Form.Group>
+                        </Form.Row> */}
                         <Button variant='primary' type="submit" value="submit">
                             Submit
                         </Button>
