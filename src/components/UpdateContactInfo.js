@@ -77,7 +77,7 @@ export default function UpdateContactInfo({baseURL, contactInfo}) {
             axios.put(`${baseURL}/contacts/${currentUser.uid}/update-info/${contactInfo.contact_id}`, contact)
                 .then((response) => {
                     setError({variant: 'success', message: response.data.message});
-                    history.push('/contacts-list');
+                    history.push('/dashboard');
                 })
                 .catch((error) => {
                     const message=`There was an error with your request. Contact was not saved. ${error.response && error.response.data.message ? error.response.data.message : error.message}.`;
@@ -87,6 +87,22 @@ export default function UpdateContactInfo({baseURL, contactInfo}) {
         }
 
     }
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        // currentUser &&
+            axios.post(`${baseURL}/contacts/${currentUser.uid}/delete-contact/${contactInfo.contact_id}`)
+                .then((response) => {
+                    setError({variant: 'success', message: response.data.message});
+                    history.push('/contacts-list');
+                })
+                .catch((error) => {
+                    const message=`There was an error with your request. Could not delete contact. ${error.response && error.response.data.message ? error.response.data.message : error.message}.`;
+                    setError({variant: 'danger', message: message});
+                    console.log(message);
+                })
+    }
+
 
     if (contact) {
 
@@ -138,6 +154,7 @@ export default function UpdateContactInfo({baseURL, contactInfo}) {
                             Submit
                         </Button>
                     </Form>
+                    <Button variant='secondary' onClick={handleDelete}>Delete Contact</Button>
                 </Card.Body>
             </Card>
         {/* </div> */}

@@ -119,7 +119,6 @@ export default function Locations({baseURL}) {
             <Form >
                 <h3 className='text-center mb-4'>Search Contact</h3>
                 <Form.Group controlId="addContact">
-                <Form.Label>Add Contact</Form.Label>
                     <Form.Control as="select" id="contacts">
                     <option value="-1">Select contact</option>
                     {contactsList.map((c, i) => 

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext';
-import {Card, Container, Row, Col} from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import "bootswatch/dist/united/bootstrap.min.css"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios';
@@ -51,22 +51,9 @@ export default function ContactList({baseURL, onContactSelected}) {
             res.push(
             <Container key={contactsList[i].contact_id}>
                 {error && <p>{error.message}</p>} 
-                <Card>
-                    <Row>
-                        <Col>
-                            <Card.Title className="text-center mb-4 mx-2"><button style={{background: 'none', border: 'none'}} onClick={updateContact}>{contactsList[i].name}</button></Card.Title> 
-                        </Col>
-                    </Row>
-                    <Card.Body>
-                        <div>
-                            <ul>
-                                <li>{contactsList[i].nickname}</li>
-                                <li>{contactsList[i].location_info.country}, {contactsList[i].location_info.state}, {contactsList[i].location_info.city}</li>
-                            </ul>
-
-                        </div>
-                    </Card.Body>
-                </Card>
+                <ul class="list-group">
+                    <li class="list-group-item"><button style={{background: 'none', border: 'none'}} onClick={updateContact}>{contactsList[i].name} ({contactsList[i].nickname})</button></li>
+                </ul>
             </Container>
             )
         }
@@ -76,7 +63,6 @@ export default function ContactList({baseURL, onContactSelected}) {
     if (contactsList) {
         return (
             <div>
-                {/* { error.message && <Alert variant={error.variant}>{error.message}</Alert>} */}
                 {showContactList()}
             </div>
     )} else {
