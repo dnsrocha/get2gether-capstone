@@ -31,8 +31,8 @@ export default function TimeBar(props) {
     const dstLocation = props.destination_location;
 
     useEffect(() => {
-        // fetch(`https://api.ipgeolocation.io/timezone?apiKey=${geolocationApi}&location=`
-            fetch("https://google.com/timezone?apiKey=thiswillfail&location="
+        fetch(`https://api.ipgeolocation.io/timezone?apiKey=${geolocationApi}&location=`
+            // fetch("https://google.com/timezone?apiKey=thiswillfail&location="
             + encodeURIComponent(`${dstLocation.city}, ${dstLocation.state}, ${dstLocation.country}`))
             .then(res => res.json())
             .then(
@@ -52,13 +52,13 @@ export default function TimeBar(props) {
     function changeTimezone(date, ianatz) {
 
         // suppose the date is 12:00 UTC
-        var invdate = new Date(date.toLocaleString('en-US', {
+        const invdate = new Date(date.toLocaleString('en-US', {
             timeZone: ianatz
         }));
 
         // then invdate will be 07:00 in Toronto
         // and the diff is 5 hours
-        var diff = date.getTime() - invdate.getTime();
+        const diff = date.getTime() - invdate.getTime();
 
         // so 12:00 in Toronto is 17:00 UTC
         return new Date(date.getTime() - diff); // needs to substract
@@ -101,7 +101,7 @@ export default function TimeBar(props) {
 
     if (!dstTzInfo || !srcTzInfo) return <div>Loading...</div>
     const relativeOffset = dstTzInfo.timezone_offset - srcTzInfo.timezone_offset;
-
+    
     return <div id="3435910" className="container srt">
         <div className="name">
             <span>{props.name}</span>

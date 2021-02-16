@@ -1,5 +1,9 @@
 import React, {useEffect, useState} from 'react'
+import { useHistory } from 'react-router-dom'
+import { Form, Button } from 'react-bootstrap'
 import TimeBar from "./TimeBar";
+import axios from 'axios'
+import { useAuth } from '../contexts/AuthContext'
 
 const x = {
     "geo": {"country": "United Kingdom", "state": "England", "city": "London", "latitude": 51.505182, "longitude": -0.0999387},
@@ -23,14 +27,21 @@ const x = {
 
 const geolocationApi = process.env.REACT_APP_IP_GEOLOCATION_API_KEY
 
-export default function Locations() {
+export default function Locations({baseURL}) {
     const [srcTzInfo, setSrcTzInfo] = useState();
     const date = new Date();
+    const { currentUser } = useAuth();
+    const [contactsList, setContactsList] = useState(null);
+    const [error, setError] = useState('');
+    const history = useHistory();
+    const [user, setUser] = useState(null);
+    const [addedContacts, setAddedContacts] = useState([]);
 
     useEffect(() => {
-        // fetch(`https://api.ipgeolocation.io/timezone?apiKey=${geolocationApi}&location=`
-        fetch("https://google.com/timezone?apiKey=thiswillfail&location="
-            + encodeURIComponent(`${auth_user_location_info.city}, ${auth_user_location_info.state}, ${auth_user_location_info.country}`))
+        user &&
+        fetch(`https://api.ipgeolocation.io/timezone?apiKey=${geolocationApi}&location=`
+        // fetch("https://google.com/timezone?apiKey=thiswillfail&location="
+            + encodeURIComponent(`${user.location_info.city}, ${user.location_info.state}, ${user.location_info.country}`))
             .then(res => res.json())
             .then(
                 (result) => {
@@ -42,33 +53,86 @@ export default function Locations() {
                     setSrcTzInfo(x);
                 }
             )
+    }, [user])
+
+
+
+    const loadUserData = () => {
+        currentUser && 
+            axios.get(`/users/current/${currentUser.uid}`)
+                .then((response) => {
+                    const apiUser = Object.values(response.data)[0]
+                    if (Object.keys(response.data)[0] !== 'message') {
+                        apiUser.userID = Object.keys(response.data)[0]
+                        setUser(apiUser);
+                    } else {
+                        setError({variant: 'warning', message: apiUser})
+                    }
+                })
+                .catch((error) => {
+                    const message=`There was an error with your request. ${error.response && error.response.data.message ? error.response.data.message : error.message}`;
+                    setError({variant: 'danger', message: message});
+                    console.log(message);
+                })
+    }
+
+    useEffect(() => {
+        loadUserData();
+    }, []);
+
+    const loadContactsList = () => {
+        currentUser && 
+            axios.get(`/contacts_list/${currentUser.uid}`)
+                .then((response) => {
+                    const apiContactsList = Object.values(response.data.result)
+                    if (Object.keys(response.data.result) !== 'message') {
+                        setContactsList(apiContactsList);
+                    } else {
+                        setError({variant: 'warning', message: Object.values(response.data)[0]})
+                    }
+                })
+                .catch((error) => {
+                    const message=`There was an error with your request. ${error.response && error.response.data.message ? error.response.data.message : error.message}`;
+                    setError({variant: 'danger', message: message});
+                    console.log(message);
+                })
+    }   
+
+    useEffect(() => {
+        loadContactsList();
     }, [])
 
-    const auth_user_location_info = {
-        city: 'Belo Horizonte',
-        state: 'Minas Gerais',
-        country: 'Brazil'
-    };
-    const contact_location_info1 = {
-        city: 'Seattle',
-        state: 'WA',
-        country: 'United States'
-    };
-    const contact_location_info2 = {
-        city: 'Dublin',
-        country: 'Ireland'
-    };
-    const contact_location_info3 = {
-        city: 'Sidney',
-        country: 'Australia'
-    };
+
+    const showContact = (e) => {
+        const index = document.getElementById('contacts').value
+        if (index < 0) return;
+        const newAddedContacts = [...addedContacts]
+        newAddedContacts.push(index)
+        setAddedContacts(newAddedContacts)
+    }
+
+    if (!contactsList || !user) return "Loading..."
 
     return (
         <div id="locations">
-            <TimeBar name="Thiago Witt" date={date} srcTzInfo={srcTzInfo} destination_location={auth_user_location_info}/>
-            <TimeBar name="Denise Rocha" date={date} srcTzInfo={srcTzInfo} destination_location={contact_location_info1}/>
-            <TimeBar name="Nina Rabello" date={date} srcTzInfo={srcTzInfo} destination_location={contact_location_info2}/>
-            <TimeBar name="Jin Jarin" date={date} srcTzInfo={srcTzInfo} destination_location={contact_location_info3}/>
+
+            <Form >
+                <h3 className='text-center mb-4'>Search Contact</h3>
+                <Form.Group controlId="addContact">
+                <Form.Label>Add Contact</Form.Label>
+                    <Form.Control as="select" id="contacts">
+                    <option value="-1">Select contact</option>
+                    {contactsList.map((c, i) => 
+                        <option key={i} value={i}>{c.name}</option>
+                    )}
+                    </Form.Control>
+                </Form.Group>
+                <Button onClick={showContact}>Show contact time</Button>
+            </Form>
+            <TimeBar name={user.full_name} date={date} srcTzInfo={srcTzInfo} destination_location={user.location_info}/>
+            {addedContacts.map((c, i) =>
+                <TimeBar key={i} name={contactsList[c].name} date={date} srcTzInfo={srcTzInfo} destination_location={contactsList[c].location_info}/>
+            )}
         </div>
     )
 }

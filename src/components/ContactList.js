@@ -18,13 +18,6 @@ export default function ContactList({baseURL, onContactSelected}) {
         currentUser && 
             axios.get(`${baseURL}/contacts_list/${currentUser.uid}`)
                 .then((response) => {
-
-                    // console.log(response.data);
-                    // console.log(response.data.result);
-                    // console.log(response.data.result[0]);
-                    // console.log(response.data.result[0].contact_id);
-
-
                     const apiContactsList = Object.values(response.data.result)
                     if (Object.keys(response.data.result) !== 'message') {
                         setContactsList(apiContactsList);
