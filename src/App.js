@@ -45,15 +45,15 @@ const App = () => {
           className="d-flex align-items-center justify-content-center"
           style={{ minHeight: "100vh"}}
         >
-        <div className="w-100" >  {/* style={{ maxWidth: '400px' }}  */}
+        <div className="w-100" > 
           <Router>
             <AuthProvider>
               <Navbar baseUrl={BASE_URL} />
               <Switch>
-                <Route path="/"><Home baseURL={BASE_URL} /></Route>
-                <Route path="/signup" component={Signup} />
-                <Route path="/login" component={Login} />
-                <Route path="/reset-password" component={ForgotPassword} />
+                <Route exact path="/" component={Home} />
+                <Route exact path="/signup" component={Signup} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/reset-password" component={ForgotPassword} />
                 <PrivateRoute exact path="/dashboard" component={UserDashboard} />
                 <PrivateRoute exact path="/update-account" component={UpdateAccount} />
                 <PrivateRoute exact path="/create-account"><ProfileForm baseURL={BASE_URL} /></PrivateRoute>

@@ -2,8 +2,9 @@ import React, { useRef, useState} from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
-import { Button, Alert, Form, Card } from 'react-bootstrap'
+import { Alert, Form, Card } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import "bootswatch/dist/united/bootstrap.min.css"
 
 
 
@@ -44,18 +45,19 @@ export default function Signup () {
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
+                            <Form.Label>Email*</Form.Label>
                             <Form.Control type="email" ref={emailRef} required />
                         </Form.Group>
                         <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label>Password*</Form.Label>
                             <Form.Control type="password" ref={passwordRef} required />
                         </Form.Group>
                         <Form.Group id="password-confirm">
-                            <Form.Label>Password Confirmation</Form.Label>
+                            <Form.Label>Password Confirmation*</Form.Label>
                             <Form.Control type="password" ref={passwordConfirmRef} required />
                         </Form.Group>
-                        <Button disabled={loading} className="w-100" type="submit">Sign Up</Button>
+                        {/* <Button disabled={loading} className="w-100" type="submit">Sign Up</Button> */}
+                        <button disabled={loading} type="button" class="btn btn-info btn-lg btn-block">Sign Up</button>
                     </Form>
                 </Card.Body>
             </Card>

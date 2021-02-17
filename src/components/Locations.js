@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { useHistory } from 'react-router-dom'
-import { Form, Button } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import TimeBar from "./TimeBar";
 import axios from 'axios'
 import { useAuth } from '../contexts/AuthContext'
@@ -121,7 +121,7 @@ export default function Locations({baseURL}) {
         <div id="locations">
 
             <Form >
-                <h3 className='text-center mb-4'>Time Bar</h3>
+                <h2 className='text-center mb-4'><p class="lead"><strong>Time Bar</strong></p></h2>
                 <Form.Label>Select the contact(s) you want to reach out to!</Form.Label>
                 <Form.Group controlId="addContact">
                     <Form.Control as="select" id="contacts">
@@ -132,18 +132,18 @@ export default function Locations({baseURL}) {
                     </Form.Control>
                 </Form.Group>
                 
-                <Button onClick={showContact}>Add to Time Bar</Button>
+                <button type="button" class="btn btn-secondary" onClick={showContact}>Add to Time Bar</button>
             </Form>
+            <span><p style={{margin: '5rem'}}></p></span>
             <TimeBar name={user.full_name} date={date} srcTzInfo={srcTzInfo} dst_location={user.location_info}
                 src_availability={{}} dst_availability={user.availability_info}/>
             {addedContacts.map((c, i) =>
                 <TimeBar key={i} name={contactsList[c].name} date={date} srcTzInfo={srcTzInfo} dst_location={contactsList[c].location_info}
                     src_availability={user.availability_info} dst_availability={contactsList[c].availability_info}/>
             )}
+            <span></span>
             <div className="w-100 text-center mt2">
-                <Button variant="link" onClick={refreshPage}>
-                    Refresh
-                </Button>
+                <button type="button" class="btn btn-link" onClick={refreshPage} >Refresh</button>
             </div>
         </div>
         

@@ -2,6 +2,11 @@
 
 const MenuItems = [
     {
+        title: 'About',
+        url: "/",
+        cName: 'nav-links'
+    },
+    {
         title: 'Signup',
         url: "/signup",
         cName: 'nav-links'

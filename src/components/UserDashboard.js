@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { Card, Button, Alert } from 'react-bootstrap'
+import { Card, Alert } from 'react-bootstrap'
 import Locations from './Locations'
 import './TimeBar.css'
 
@@ -30,33 +30,26 @@ export default function UserDashboard () {
             <Card>
                 <Card.Body>
                     {error && <Alert variant="danger">{error}</Alert>}
-                    <strong>You are logged in as: </strong>{currentUser.email} <br />
-                    
-                    <Link to="/update-profile" className="btn btn-secondary w100 mt-3 mx-3">
-                        Update Profile
-                    </Link>
-
-                    <Link to="/update-account" className="btn btn-secondary w100 mt-3 mx-3">
-                        Update Account
-                    </Link>
-
-                    <Link to="/add-contact" className="btn btn-secondary w100 mt-3 mx-3">
-                        Add Contact
-                    </Link> 
-
-                    <Link to="/contacts-list" className="btn btn-secondary w100 mt-3 mx-3">
-                        Manage Contacts
-                    </Link>
-                
+                    <div>
+                        <span><p><strong>You are logged in as: </strong>{currentUser.email}</p></span>
+                    </div>
+                    <div>
+                        <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/update-profile">Update Profile</a></li>
+                        <li class="breadcrumb-item"><a href="/update-account">Update Account</a></li>
+                        <li class="breadcrumb-item"><a href="/add-contact">Add Contacts</a></li>
+                        <li class="breadcrumb-item"><a href="/contacts-list">Manage Contacts</a></li>
+                        </ol>
+                    </div>
+                    <span><button type="button" class="btn btn-link" onClick={handleLogout} >Log Out</button></span>
                 </Card.Body>
             </Card> 
-            <div className="w-100 text-center mt2">
-                <Button variant="link" onClick={handleLogout}>
-                    Log Out
-                </Button>
-            </div>
-
+            <br />
             <Locations />
         </>
     )
 }
+
+
+
+
