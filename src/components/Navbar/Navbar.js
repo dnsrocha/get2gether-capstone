@@ -1,7 +1,6 @@
 import React, { useState } from 'react' 
 // import {Navbar} from 'bootstrap'
 import  MenuItems from './MenuItems'
-import Button from '../Button'
 import './Navbar.css'
 
 export default function Navbar() {

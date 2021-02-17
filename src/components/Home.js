@@ -11,7 +11,7 @@ const Home = ({baseURL}) => {
                 { currentUser ? 
                     <UserDashboard baseURL={baseURL} /> 
                 :
-                    <Login href="/login" />
+                    <Login />
                 }
             </div>
         )

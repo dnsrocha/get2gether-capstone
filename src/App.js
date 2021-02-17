@@ -9,7 +9,7 @@ import { Container } from 'react-bootstrap'
 import './App.css';
 
 
-// import Home from './components/Home'
+import Home from './components/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import ForgotPassword from './components/ForgotPassword'
@@ -50,7 +50,7 @@ const App = () => {
             <AuthProvider>
               <Navbar baseUrl={BASE_URL} />
               <Switch>
-                {/* <Route path="/"><Home baseURL={BASE_URL} /></Route> */}
+                <Route path="/"><Home baseURL={BASE_URL} /></Route>
                 <Route path="/signup" component={Signup} />
                 <Route path="/login" component={Login} />
                 <Route path="/reset-password" component={ForgotPassword} />

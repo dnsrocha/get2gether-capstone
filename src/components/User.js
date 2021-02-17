@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useRef} from 'react'
-import {useRouteMatch, Link} from 'react-router-dom';
+import React, {useState, useEffect} from 'react'
+import {useRouteMatch} from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import {Card, Button, Container, Row, Col, Alert, Overlay} from 'react-bootstrap';
+import {Card, Container, Row, Col, Alert} from 'react-bootstrap';
 import "bootswatch/dist/united/bootstrap.min.css"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios';
@@ -12,7 +12,7 @@ const User = ({baseURL}) => {
     const { currentUser } = useAuth();
     const [user, setUser] = useState({});
     const [error, setError] = useState('');
-    const target = useRef(null);
+    // const target = useRef(null);
 
     const match = useRouteMatch('/users/:id');
     const userId = match.params.id

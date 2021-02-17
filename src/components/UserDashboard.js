@@ -4,8 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { Card, Button, Alert } from 'react-bootstrap'
 import Locations from './Locations'
-import TimeBar from './TimeBar'
-// import TimeBar from './TimeBar.css'
+import './TimeBar.css'
 
 export default function UserDashboard () {
 
