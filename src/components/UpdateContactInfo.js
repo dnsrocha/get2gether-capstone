@@ -129,17 +129,17 @@ export default function UpdateContactInfo({baseURL, contactInfo}) {
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridCountry" >
                                 <Form.Label>Country*</Form.Label>
-                                <Form.Control name='country' value={contact.location_info.country} onChange={handleChange} />
+                                <Form.Control name='country' value={contact.location_info.country} onChange={handleChange} placeholder="Don't use acronyms" />
                             </Form.Group>
                             <Form.Group as={Col} controlId='formGridState' >
                                 <Form.Label>State*</Form.Label>
-                                <Form.Control name='state' value={contact.location_info.state} onChange={handleChange} />
+                                <Form.Control name='state' value={contact.location_info.state} onChange={handleChange} placeholder="Don't use acronyms" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridCity" >
                                 <Form.Label>City*</Form.Label>
-                                <Form.Control name='city' value={contact.location_info.city} onChange={handleChange} />
+                                <Form.Control name='city' value={contact.location_info.city} onChange={handleChange} placeholder="Don't use acronyms" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>

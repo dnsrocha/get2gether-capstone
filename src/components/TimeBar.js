@@ -1,5 +1,5 @@
 import React from 'react' 
-import Timebar from './TimeBar.css'
+import './TimeBar.css'
 import {useEffect, useState} from "react";
 
 const testOutput = {

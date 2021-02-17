@@ -30,9 +30,8 @@ export default function UserDashboard () {
         <>
             <Card>
                 <Card.Body>
-                    <h2 className="text-center mb-4">Profile</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
-                    <strong>Email:</strong>{currentUser.email} <br />
+                    <strong>You are logged in as: </strong>{currentUser.email} <br />
                     
                     <Link to="/update-profile" className="btn btn-secondary w100 mt-3 mx-3">
                         Update Profile
@@ -47,7 +46,7 @@ export default function UserDashboard () {
                     </Link> 
 
                     <Link to="/contacts-list" className="btn btn-secondary w100 mt-3 mx-3">
-                        Contacts List
+                        Manage Contacts
                     </Link>
                 
                 </Card.Body>

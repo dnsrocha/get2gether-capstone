@@ -143,22 +143,22 @@ export default function UpdateProfile({baseURL}) {
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridCountry" >
                                 <Form.Label>Country*</Form.Label>
-                                <Form.Control name='country' value={user.location_info.country} onChange={handleChange} />
+                                <Form.Control name='country' value={user.location_info.country} onChange={handleChange} placeholder="Don't use acronyms" />
                             </Form.Group>
                             <Form.Group as={Col} controlId='formGridState' >
                                 <Form.Label>State*</Form.Label>
-                                <Form.Control name='state' value={user.location_info.state} onChange={handleChange} />
+                                <Form.Control name='state' value={user.location_info.state} onChange={handleChange} placeholder="Don't use acronyms" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridCity" >
                                 <Form.Label>City*</Form.Label>
-                                <Form.Control name='city' value={user.location_info.city} onChange={handleChange} />
+                                <Form.Control name='city' value={user.location_info.city} onChange={handleChange} placeholder="Don't use acronyms" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group controlId="formBasicCheckbox">
-                            <Form.Label>Availability*</Form.Label>
+                            <Form.Label>Availability* (Hours are displayed in 24-hour military time format. Check all that apply.)</Form.Label>
                             {[...Array(24).keys()].map(i =>  
                                 <Form.Check type="checkbox" name={i} label={i} checked={user.availability_info[i]} onChange={availabilityChange}/>
                             )}

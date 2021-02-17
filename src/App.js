@@ -9,7 +9,7 @@ import { Container } from 'react-bootstrap'
 import './App.css';
 
 
-import Home from './components/Home'
+// import Home from './components/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import ForgotPassword from './components/ForgotPassword'
@@ -20,12 +20,7 @@ import UpdateProfile from './components/UpdateProfile'
 import ContactForm from './components/ContactForm'
 import ContactList from './components/ContactList'
 import UpdateContactInfo from './components/UpdateContactInfo'
-import TimeBar from './components/TimeBar'
-// import Navigation from './components/Navigation'
-import User from './components/User'
-// import Search from './components/Search'
-// import SearchContact from './SearchContact'
-// import ContactList from './components/ContactList'
+import Navbar from './components/Navbar/Navbar'
 
 
 const BASE_URL = 'http://localhost:5000'
@@ -53,9 +48,8 @@ const App = () => {
         <div className="w-100" >  {/* style={{ maxWidth: '400px' }}  */}
           <Router>
             <AuthProvider>
-              {/* <Navigation baseUrl={BASE_URL} /> */}
+              <Navbar baseUrl={BASE_URL} />
               <Switch>
-                {/* <PrivateRoute exact path='/users/:id' ><User baseUrl={BASE_URL} /></PrivateRoute> */}
                 {/* <Route path="/"><Home baseURL={BASE_URL} /></Route> */}
                 <Route path="/signup" component={Signup} />
                 <Route path="/login" component={Login} />

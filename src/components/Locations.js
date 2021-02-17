@@ -102,6 +102,10 @@ export default function Locations({baseURL}) {
         loadContactsList();
     }, [])
 
+    const refreshPage = (e) => { 
+        window.location.reload(); 
+    }
+
 
     const showContact = (e) => {
         const index = document.getElementById('contacts').value
@@ -117,7 +121,8 @@ export default function Locations({baseURL}) {
         <div id="locations">
 
             <Form >
-                <h3 className='text-center mb-4'>Search Contact</h3>
+                <h3 className='text-center mb-4'>Time Bar</h3>
+                <Form.Label>Select the contact(s) you want to reach out to!</Form.Label>
                 <Form.Group controlId="addContact">
                     <Form.Control as="select" id="contacts">
                     <option value="-1">Select contact</option>
@@ -126,7 +131,8 @@ export default function Locations({baseURL}) {
                     )}
                     </Form.Control>
                 </Form.Group>
-                <Button onClick={showContact}>Show contact time</Button>
+                
+                <Button onClick={showContact}>Add to Time Bar</Button>
             </Form>
             <TimeBar name={user.full_name} date={date} srcTzInfo={srcTzInfo} dst_location={user.location_info}
                 src_availability={{}} dst_availability={user.availability_info}/>
@@ -134,6 +140,12 @@ export default function Locations({baseURL}) {
                 <TimeBar key={i} name={contactsList[c].name} date={date} srcTzInfo={srcTzInfo} dst_location={contactsList[c].location_info}
                     src_availability={user.availability_info} dst_availability={contactsList[c].availability_info}/>
             )}
+            <div className="w-100 text-center mt2">
+                <Button variant="link" onClick={refreshPage}>
+                    Refresh
+                </Button>
+            </div>
         </div>
+        
     )
 }

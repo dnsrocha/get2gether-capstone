@@ -146,7 +146,7 @@ export default function ContactForm({baseURL}) {
                                 </Form.Row>
                                 <Form.Row>
                                 <Form.Group controlId="formBasicCheckbox">
-                                    <Form.Label>Availability*</Form.Label>
+                                    <Form.Label>Availability* (Hours are displayed in 24-hour military time format. Check all that apply.) </Form.Label>
                                         {[...Array(24).keys()].map(i =>  
                                             <Form.Check type="checkbox" name={i} label={i} checked={contact.availability_info[i]} onChange={availabilityChange}/>
                                         )}
